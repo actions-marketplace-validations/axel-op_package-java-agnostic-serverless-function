@@ -1,0 +1,23 @@
+name: Test
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        faas-provider: [azure, gcloud]
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          repository: axel-op/agnostic-serverless-functions-java-example
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: axel-op/agnostic-serverless-functions-java-package-action@main
+        with:
+          faas-provider: ${{ matrix.faas-provider }}
+          function-name: example-function
