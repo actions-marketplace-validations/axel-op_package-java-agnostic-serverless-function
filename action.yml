@@ -1,0 +1,30 @@
+name: "Package Java Agnostic Serverless Functions"
+description: "Package an agnostic serverless Function in Java for a specific FaaS provider"
+inputs:
+  faas-provider:
+    description: "The provider to package the function for. Possible values are: azure, gcloud."
+    required: true
+  function-name:
+    description: "The name of the function to be packaged"
+    required: true
+  working-directory:
+    description: "The root directory of the function"
+    required: false
+    default: "."
+runs:
+  using: "composite"
+  steps:
+    - name: Package for Google Cloud Functions
+      if: inputs.faas-provider == 'gcloud'
+      working-directory: inputs.working-directory
+      run: package-gcloud.sh
+      shell: bash
+      env:
+        DEPLOYMENT_DIR: deployment
+    - name: Package for Azure Functions
+      if: inputs.faas-provider == 'azure'
+      working-directory: inputs.working-directory
+      run: package-azure.sh
+      shell: bash
+      env:
+        APP_NAME: ${{ inputs.function-name }}
