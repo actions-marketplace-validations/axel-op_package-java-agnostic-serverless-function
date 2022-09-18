@@ -42,8 +42,12 @@ jobs:
 
 ### Inputs
 
-- `function-name`: the name of the function that will be deployed
+- `function-name`: the name of the function that will be deployed.
 - `faas-provider`: the provider the function will be packaged for. Accepted values are: `azure`, `gcloud` (more providers to come).
+
+### Outputs
+
+- `deployment-directory`: the absolute path of the directory containing the files to be deployed.
 
 ### About Maven settings
 

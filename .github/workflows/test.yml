@@ -22,8 +22,10 @@ jobs:
           SETTINGS_XML: ${{ secrets.SETTINGS_XML }}
         run: mkdir -p "$HOME/.m2" && echo "$SETTINGS_XML" > "$HOME/.m2/settings.xml"
       - uses: axel-op/agnostic-serverless-functions-java-package-action@main
+        id: package
         env:
           AGNOSTIC_FUNCTION_ADAPTER: ${{ matrix.faas-provider }}
         with:
           faas-provider: ${{ matrix.faas-provider }}
           function-name: example-function
+      - run: echo ${{ steps.package.outputs.deployment-directory }}
