@@ -18,6 +18,8 @@ jobs:
         with:
           java-version: 11
       - uses: axel-op/agnostic-serverless-functions-java-package-action@main
+        env:
+          AGNOSTIC_FUNCTION_ADAPTER: ${{ matrix.faas-provider }}
         with:
           faas-provider: ${{ matrix.faas-provider }}
           function-name: example-function
