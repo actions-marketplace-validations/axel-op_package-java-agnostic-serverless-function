@@ -17,6 +17,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+      - name: Update settings.xml
+        env:
+          SETTINGS_XML: ${{ secrets.SETTINGS_XML }}
+        run: mkdir -p "$HOME/.m2" && echo "$SETTINGS_XML" > "$HOME/.m2/settings.xml"
       - uses: axel-op/agnostic-serverless-functions-java-package-action@main
         env:
           AGNOSTIC_FUNCTION_ADAPTER: ${{ matrix.faas-provider }}
