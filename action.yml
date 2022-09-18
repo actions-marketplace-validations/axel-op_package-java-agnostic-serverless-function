@@ -1,5 +1,8 @@
 name: "Package Java Agnostic Serverless Functions"
-description: "Package an agnostic serverless Function in Java for a specific FaaS provider"
+description: "Package an Agnostic Serverless Function in Java to deploy it on a specific FaaS provider"
+branding:
+  icon: package
+  color: red
 inputs:
   faas-provider:
     description: "The provider to package the function for. Possible values are: azure, gcloud."
