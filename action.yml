@@ -15,16 +15,10 @@ runs:
   using: "composite"
   steps:
     - name: Package for Google Cloud Functions
-      if: inputs.faas-provider == 'gcloud'
       working-directory: ${{ inputs.working-directory }}
-      run: ${GITHUB_ACTION_PATH}/package-gcloud.sh
-      shell: bash
-      env:
-        DEPLOYMENT_DIR: deployment
-    - name: Package for Azure Functions
-      if: inputs.faas-provider == 'azure'
-      working-directory: ${{ inputs.working-directory }}
-      run: ${GITHUB_ACTION_PATH}/package-azure.sh
+      run: "${GITHUB_ACTION_PATH}/package-${FAAS_PROVIDER}.sh"
       shell: bash
       env:
         APP_NAME: ${{ inputs.function-name }}
+        DEPLOYMENT_DIR: deployment
+        FAAS_PROVIDER: ${{ inputs.faas-provider }}
