@@ -8,7 +8,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        faas-provider: [azure, gcloud]
+        faas-provider: [aws, azure, gcloud]
     steps:
       - uses: actions/checkout@v3
         with:

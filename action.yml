@@ -5,7 +5,7 @@ branding:
   color: red
 inputs:
   faas-provider:
-    description: "The provider to package the function for. Possible values are: azure, gcloud."
+    description: "The provider to package the function for. Possible values are: aws, azure, gcloud."
     required: true
   function-name:
     description: "The name of the function to be packaged"
