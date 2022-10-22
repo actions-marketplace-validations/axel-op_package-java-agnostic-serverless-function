@@ -15,7 +15,7 @@ jobs:
   example-job:
     
     env:
-      FAAS_PROVIDER: gcloud
+      FAAS_PROVIDER: gcloud # can be: aws, azure, gcloud
       MAVEN_SERVER_ID: github-packages # this is the id set in pom.xml
 
     runs-on: ubuntu-latest
@@ -43,7 +43,7 @@ jobs:
 ### Inputs
 
 - `function-name`: the name of the function that will be deployed.
-- `faas-provider`: the provider the function will be packaged for. Accepted values are: `azure`, `gcloud` (more providers to come).
+- `faas-provider`: the provider the function will be packaged for. Accepted values are: `aws`, `azure`, `gcloud` (more providers to come).
 
 ### Outputs
 
