@@ -18,6 +18,9 @@ outputs:
   deployment-directory:
     description: "The directory containing the files to be deployed"
     value: ${{ steps.package.outputs.deployment-directory }}
+  deployment-file:
+    description: "The zip (for gcloud and azure) or jar (for aws) file to be deployed"
+    value: ${{ steps.package.outputs.deployment-file }}
 runs:
   using: "composite"
   steps:

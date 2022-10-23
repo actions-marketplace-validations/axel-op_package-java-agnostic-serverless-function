@@ -3,4 +3,11 @@
 mvn --batch-mode -DappName="${APP_NAME}" package com.microsoft.azure:azure-functions-maven-plugin:package
 
 BUILD_DIR=$(mvn help:evaluate -Dexpression=project.build.directory -q -DforceStdout)
-echo "::set-output name=deployment-directory::${BUILD_DIR}/azure-functions/${APP_NAME}"
+
+DEPLOYMENT_DIR_ABS="${BUILD_DIR}/azure-functions/${APP_NAME}"
+DEPLOYMENT_FILE_ABS="${DEPLOYMENT_DIR_ABS}.zip"
+
+zip -r "${DEPLOYMENT_FILE_ABS}" "${DEPLOYMENT_DIR_ABS}"
+
+echo "::set-output name=deployment-directory::${DEPLOYMENT_DIR_ABS}"
+echo "::set-output name=deployment-file::${DEPLOYMENT_FILE_ABS}"
