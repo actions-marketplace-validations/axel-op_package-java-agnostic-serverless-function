@@ -13,5 +13,5 @@ cp "${BUILD_DIR}/${JAR_FILE}" "${BUILD_DIR}/${DEPLOYMENT_DIR}/${JAR_FILE}"
 DEPLOYMENT_DIR_ABS="${BUILD_DIR}/${DEPLOYMENT_DIR}"
 DEPLOYMENT_FILE_ABS="${DEPLOYMENT_DIR_ABS}/${JAR_FILE}"
 
-echo "::set-output name=deployment-directory::${DEPLOYMENT_DIR_ABS}"
-echo "::set-output name=deployment-file::${DEPLOYMENT_FILE_ABS}"
+echo "deployment-directory=${DEPLOYMENT_DIR_ABS}" >> $GITHUB_OUTPUT
+echo "deployment-file=${DEPLOYMENT_FILE_ABS}" >> $GITHUB_OUTPUT
