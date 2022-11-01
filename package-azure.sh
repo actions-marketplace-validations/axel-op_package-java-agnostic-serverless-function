@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -Eeuo pipefail
+
 mvn --batch-mode -DappName="${APP_NAME}" package com.microsoft.azure:azure-functions-maven-plugin:package
 
 BUILD_DIR=$(mvn help:evaluate -Dexpression=project.build.directory -q -DforceStdout)
