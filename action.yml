@@ -17,19 +17,35 @@ inputs:
 outputs:
   deployment-directory:
     description: "The directory containing the files to be deployed"
-    value: ${{ steps.package.outputs.deployment-directory }}
+    value: ${{ steps.package-aws.outputs.deployment-directory || steps.package-gcloud.outputs.deployment-directory || steps.package-azure.outputs.deployment-directory }}
   deployment-file:
     description: "The zip (for gcloud and azure) or jar (for aws) file to be deployed"
-    value: ${{ steps.package.outputs.deployment-file }}
+    value: ${{ steps.package-aws.outputs.deployment-file || steps.package-gcloud.outputs.deployment-file || steps.package-azure.outputs.deployment-file }}
 runs:
   using: "composite"
   steps:
-    - name: Package
-      id: package
-      working-directory: ${{ inputs.working-directory }}
-      run: "${GITHUB_ACTION_PATH}/package-${FAAS_PROVIDER}.sh"
-      shell: bash
+    - name: Package AWS Lambda
+      if: ${{ inputs.faas-provider == 'aws' }}
+      id: package-aws
+      uses: axel-op/package-java-aws-lambda@main
+      with:
+        working-directory: ${{ inputs.working-directory }}
       env:
-        APP_NAME: ${{ inputs.function-name }}
         DEPLOYMENT_DIR: deployment
-        FAAS_PROVIDER: ${{ inputs.faas-provider }}
+    - name: Package Google Cloud Function
+      if: ${{ inputs.faas-provider == 'gcloud' }}
+      id: package-gcloud
+      uses: axel-op/package-java-google-cloud-function@main
+      with:
+        working-directory: ${{ inputs.working-directory }}
+      env:
+        DEPLOYMENT_DIR: deployment
+    - name: Package Azure Function app
+      if: ${{ inputs.faas-provider == 'azure' }}
+      id: package-azure
+      uses: axel-op/package-java-azure-function@main
+      with:
+        working-directory: ${{ inputs.working-directory }}
+        function-name: ${{ inputs.function-name }}
+      env:
+        DEPLOYMENT_DIR: deployment
