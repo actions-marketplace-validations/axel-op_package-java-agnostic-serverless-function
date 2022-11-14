@@ -28,4 +28,9 @@ jobs:
         with:
           faas-provider: ${{ matrix.faas-provider }}
           function-name: example-function
-      - run: echo ${{ steps.package.outputs.deployment-directory }}
+      - name: Log outputs
+        run: |
+          DEPLOYMENT_DIR=${{ steps.package.outputs.deployment-directory }}
+          echo "The deployment directory is $DEPLOYMENT_DIR"
+          echo "It contains these files:"
+          ls $DEPLOYMENT_DIR
