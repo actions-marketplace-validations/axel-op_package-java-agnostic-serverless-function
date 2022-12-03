@@ -32,7 +32,7 @@ jobs:
         env:
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}
-        uses: axel-op/agnostic-serverless-functions-java-package-action@main
+        uses: axel-op/package-java-agnostic-serverless-function@main
         with:
           function-name: name-of-your-function
           faas-provider: ${{ env.FAAS_PROVIDER }}
